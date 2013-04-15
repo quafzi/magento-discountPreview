@@ -1,0 +1,4 @@
+app/code/community/Quafzi/DiscountPreview app/code/community/Quafzi/DiscountPreview
+app/etc/modules/Quafzi_DiscountPreview.xml app/etc/modules/Quafzi_DiscountPreview.xml
+app/design/frontend/base/default/template/discountpreview app/design/frontend/base/default/template/discountpreview
+app/locale/de_DE/Quafzi_DiscountPreview.csv app/locale/de_DE/Quafzi_DiscountPreview.csv

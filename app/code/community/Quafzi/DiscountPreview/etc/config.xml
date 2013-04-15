@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Quafzi_DiscountPreview>
+            <version>0.1.0</version>
+        </Quafzi_DiscountPreview>
+    </modules>
+    <global>
+        <models>
+            <quafzi_discountpreview>
+                <class>Quafzi_DiscountPreview_Model</class>
+            </quafzi_discountpreview>
+        </models>
+        <helpers>
+            <quafzi_discountpreview>
+                <class>Quafzi_DiscountPreview_Helper</class>
+            </quafzi_discountpreview>
+        </helpers>
+    </global>
+    <frontend>
+        <events>
+        	<block_catalog_product_get_price_html>
+                <observers>
+                    <quafzi_discountpreview>
+                        <type>singleton</type>
+                        <class>quafzi_discountpreview/observer</class>
+                        <method>blockCatalogProductGetPriceHtml</method>
+                    </quafzi_discountpreview>
+                </observers>
+            </block_catalog_product_get_price_html>
+        </events>
+        <translate>
+            <modules>
+                <Quafzi_DiscountPreview>
+                    <files>
+                        <default>Quafzi_DiscountPreview.csv</default>
+                    </files>
+                </Quafzi_DiscountPreview>
+            </modules>
+        </translate>
+    </frontend>
+</config>
+

@@ -33,6 +33,9 @@ class Quafzi_DiscountPreview_Helper_Data extends Mage_Core_Helper_Abstract
 
         $tmpQuoteItem = Mage::getModel('sales/quote_item');
         $tmpQuoteItem->setProduct($_product);
+        if (false == is_object($tmpQuoteItem)) {
+            return;
+        }
         $tmpQuote = Mage::getModel('sales/quote');
         $tmpQuote
             ->getBillingAddress()

@@ -35,6 +35,15 @@ class Quafzi_DiscountPreview_Model_Observer
             ->addItem($tmpQuoteItem);
         $tmpQuote->addItem($tmpQuoteItem);
 
+        $cart = Mage::getModel('checkout/cart')->getQuote();
+        foreach ($cart->getItemsCollection() as $item) {
+            $tmpQuote
+                ->getBillingAddress()
+                ->addItem($item);
+            //$tmpQuote->getItemsCollection()->addItem($item);
+            $tmpQuote->addItem($item);
+        }
+
         $ruleValidator = Mage::getModel('salesrule/validator');
         $ruleValidator->init(
             Mage::app()->getStore()->getWebsiteId(),

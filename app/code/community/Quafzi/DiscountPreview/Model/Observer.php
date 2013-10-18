@@ -8,7 +8,7 @@
 
 class Quafzi_DiscountPreview_Model_Observer
 {
-    public function blockCatalogProductGetPriceHtml($observer)
+    public function blockCatalogProductGetPriceHtml(Varien_Object $observer)
     {
         $block  = $observer->getBlock();
         $helper = Mage::helper('quafzi_discountpreview');
@@ -24,7 +24,7 @@ class Quafzi_DiscountPreview_Model_Observer
         $container->setHtml($html);
     }
 
-    protected function _getDiscountInfo($_product)
+    protected function _getDiscountInfo(Mage_Catalog_Model_Product $_product)
     {
         $tmpQuoteItem = Mage::getModel('sales/quote_item');
         $tmpQuoteItem->setProduct($_product);

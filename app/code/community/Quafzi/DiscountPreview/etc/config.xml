@@ -6,16 +6,21 @@
         </Quafzi_DiscountPreview>
     </modules>
     <global>
-        <models>
+        <blocks>
             <quafzi_discountpreview>
-                <class>Quafzi_DiscountPreview_Model</class>
+                <class>Quafzi_DiscountPreview_Block</class>
             </quafzi_discountpreview>
-        </models>
+        </blocks>
         <helpers>
             <quafzi_discountpreview>
                 <class>Quafzi_DiscountPreview_Helper</class>
             </quafzi_discountpreview>
         </helpers>
+        <models>
+            <quafzi_discountpreview>
+                <class>Quafzi_DiscountPreview_Model</class>
+            </quafzi_discountpreview>
+        </models>
     </global>
     <frontend>
         <events>
@@ -29,6 +34,13 @@
                 </observers>
             </block_catalog_product_get_price_html>
         </events>
+        <layout>
+            <updates>
+                <quafzi_discountpreview>
+                    <file>discountpreview.xml</file>
+                </quafzi_discountpreview>
+            </updates>
+        </layout>
         <translate>
             <modules>
                 <Quafzi_DiscountPreview>

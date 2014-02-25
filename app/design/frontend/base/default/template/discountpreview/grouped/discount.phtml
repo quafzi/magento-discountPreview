@@ -1,0 +1,12 @@
+<?php if ($this->getDiscountAmount() || $this->getDiscountPercent()): ?>
+<div class="discount_preview discount_<?php echo $this->getDiscountAmount() ? 'absolute' : 'relative'; ?>">
+    <?php echo Mage::helper('quafzi_discountpreview')->__(
+        $this->getIsMinDiscount()
+            ? 'You\'ll get an expected discount of at least %s for the displayed prices.'
+            : 'You\'ll get an expected discount of %s for the displayed prices.',
+        $this->getDiscountAmount()
+            ? Mage::helper('core')->formatPrice($this->getDiscountAmount())
+            : $this->getDiscountPercent() . '%'
+    ); ?>
+</div>
+<?php endif ?>

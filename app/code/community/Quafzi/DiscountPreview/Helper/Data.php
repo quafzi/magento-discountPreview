@@ -30,6 +30,7 @@ class Quafzi_DiscountPreview_Helper_Data extends Mage_Core_Helper_Abstract
     {
         $this->discountAmount = null;
         $this->discountPercent = null;
+        $_product->load($_product->getId());
 
         $tmpQuoteItem = Mage::getModel('sales/quote_item');
         $tmpQuoteItem->setProduct($_product);

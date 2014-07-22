@@ -23,38 +23,4 @@ class Quafzi_DiscountPreview_Model_Observer
         $html = $container->getHtml() . $block->toHtml();
         $container->setHtml($html);
     }
-
-    protected function _getDiscountInfo(Mage_Catalog_Model_Product $_product)
-    {
-        $tmpQuoteItem = Mage::getModel('sales/quote_item');
-        $tmpQuoteItem->setProduct($_product);
-
-        $tmpQuote = Mage::getModel('sales/quote');
-        $tmpQuote
-            ->getBillingAddress()
-            ->addItem($tmpQuoteItem);
-        $tmpQuote->addItem($tmpQuoteItem);
-
-        $ruleValidator = Mage::getModel('salesrule/validator');
-        $ruleValidator->init(
-            Mage::app()->getStore()->getWebsiteId(),
-            Mage::helper('customer')->getCustomer()->getGroupId(),
-            null
-        );
-        $tmpQuote->collectTotals();
-        $ruleValidator->process($tmpQuoteItem);
-
-        if ($tmpQuoteItem->getDiscountAmount()) {
-            return sprintf(
-                'Sie erhalten %s Rabatt auf diesen Preis!',
-                Mage::helper('core')->formatPrice($tmpQuoteItem->getDiscountAmount())
-            );
-        } elseif ($tmpQuoteItem->getDiscountPercent()) {
-            return sprintf(
-                'Sie erhalten %s%% Rabatt auf diesen Preis!',
-                $tmpQuoteItem->getDiscountPercent()
-            );
-        }
-        return 'Sie erhalten keinen Rabatt';
-    }
 }

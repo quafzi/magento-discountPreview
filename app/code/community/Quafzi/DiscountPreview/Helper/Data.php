@@ -52,10 +52,12 @@ class Quafzi_DiscountPreview_Helper_Data extends Mage_Core_Helper_Abstract
         $tmpQuote->collectTotals();
         $ruleValidator->process($tmpQuoteItem);
 
+        if ($tmpQuoteItem->getDiscountPercent()) {
+            $this->discountPercent = $tmpQuoteItem->getDiscountPercent();
+            $this->discountAmount  = $this->discountPercent / 100 * $tmpQuoteItem->getProduct()->getPrice();
+        }
         if ($tmpQuoteItem->getDiscountAmount()) {
             $this->discountAmount = $tmpQuoteItem->getDiscountAmount();
-        } elseif ($tmpQuoteItem->getDiscountPercent()) {
-            $this->discountPercent = $tmpQuoteItem->getDiscountPercent();
         }
     }
 }

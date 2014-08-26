@@ -2,8 +2,8 @@
 <div class="discount_preview discount_<?php echo $this->getDiscountAmount() ? 'absolute' : 'relative'; ?>">
     <?php echo Mage::helper('quafzi_discountpreview')->__(
         'You\'ll get an expected discount of %s for that price.',
-        $this->getDiscountPercent()
-        . ($this->getDiscountAmount() ? '(' . Mage::helper('core')->formatPrice($this->getDiscountAmount()) . ')' : '')
+        $this->getDiscountPercent() . '%'
+        . ($this->getDiscountAmount() ? ' (' . Mage::helper('core')->formatPrice($this->getDiscountAmount()) . ')' : '')
     ); ?>
 </div>
 <?php endif ?>

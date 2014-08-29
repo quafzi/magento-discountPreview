@@ -14,7 +14,7 @@
  * @author     Thomas Birke <tbirke@netextreme.de>
  */
 class Quafzi_DiscountPreview_Block_Catalog_Product_Discount
-	extends Mage_Core_Block_Template
+    extends Mage_Core_Block_Template
 {
     protected $_template = 'discountpreview/discount.phtml';
 
@@ -41,15 +41,15 @@ class Quafzi_DiscountPreview_Block_Catalog_Product_Discount
         return array(Mage_Catalog_Model_Product::CACHE_TAG);
     }
 
-	/**
-	 * Calculate discount
-	 */
-	public function _toHtml()
-	{
+    /**
+     * Calculate discount
+     */
+    public function _toHtml()
+    {
         $helper = Mage::helper('quafzi_discountpreview');
         $helper->setProduct($this->getProduct());
         $this->setDiscountPercent($helper->getDiscountPercent());
         $this->setDiscountAmount($helper->getDiscountAmount());
         return parent::_toHtml();
-	}
+    }
 }

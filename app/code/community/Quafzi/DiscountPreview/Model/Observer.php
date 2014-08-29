@@ -18,7 +18,6 @@ class Quafzi_DiscountPreview_Model_Observer
         $block->setDiscountPercent($helper->getDiscountPercent());
         $block->setDiscountAmount($helper->getDiscountAmount());
 
-
         $container = $observer->getContainer();
         $html = $container->getHtml() . $block->toHtml();
         $container->setHtml($html);

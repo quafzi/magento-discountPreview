@@ -24,7 +24,7 @@
     </global>
     <frontend>
         <events>
-        	<block_catalog_product_get_price_html>
+            <block_catalog_product_get_price_html>
                 <observers>
                     <quafzi_discountpreview>
                         <type>singleton</type>

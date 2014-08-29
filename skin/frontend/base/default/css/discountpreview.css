@@ -1,0 +1,11 @@
+div.discount_preview.short {
+    background: none repeat scroll 0% 0% rgba(255, 205, 25, 0.6);
+    color: #d34513;
+    font-weight: bold;
+    margin-left: -10px;
+    margin-top: -20px;
+    padding: 2px 10px;
+    position: absolute;
+    text-align: center;
+    transform: rotate(-20deg);
+}

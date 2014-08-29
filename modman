@@ -3,3 +3,4 @@ app/etc/modules/Quafzi_DiscountPreview.xml app/etc/modules/Quafzi_DiscountPrevie
 app/design/frontend/base/default/template/discountpreview app/design/frontend/base/default/template/discountpreview
 app/design/frontend/base/default/layout/discountpreview.xml app/design/frontend/base/default/layout/discountpreview.xml
 app/locale/de_DE/Quafzi_DiscountPreview.csv app/locale/de_DE/Quafzi_DiscountPreview.csv
+skin/frontend/base/default/css/discountpreview.css skin/frontend/base/default/css/discountpreview.css

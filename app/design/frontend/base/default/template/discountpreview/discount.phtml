@@ -1,9 +1,17 @@
 <?php if ($this->getDiscountAmount() || $this->getDiscountPercent()): ?>
-<div class="discount_preview discount_<?php echo $this->getDiscountAmount() ? 'absolute' : 'relative'; ?>">
-    <?php echo Mage::helper('quafzi_discountpreview')->__(
-        'You\'ll get an expected discount of %s for that price.',
-        $this->getDiscountPercent() . '%'
-        . ($this->getDiscountAmount() ? ' (' . Mage::helper('core')->formatPrice($this->getDiscountAmount()) . ')' : '')
-    ); ?>
+<div class="discount_preview discount_<?php echo $this->getDiscountAmount() ? 'absolute' : 'relative'; ?><?php if ($this->getIsShort()): ?> short<?php endif; ?>">
+    <?php if (true == $this->getIsShort()): ?>
+        <?php echo $this->getDiscountPercent(); ?>% <?php echo $this->__('Discount'); ?>
+        <?php if ($this->getDiscountAmount()): ?>
+            <br />
+            (-<?php echo Mage::helper('core')->formatPrice($this->getDiscountAmount()); ?>)
+        <?php endif; ?>
+    <?php else: ?>
+        <?php echo Mage::helper('quafzi_discountpreview')->__(
+            'You\'ll get an expected discount of %s for that price.',
+            $this->getDiscountPercent() . '%'
+            . ($this->getDiscountAmount() ? ' (' . Mage::helper('core')->formatPrice($this->getDiscountAmount()) . ')' : '')
+        ); ?>
+    <?php endif; ?>
 </div>
 <?php endif ?>

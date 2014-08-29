@@ -5,6 +5,14 @@
             <block type="quafzi_discountpreview/catalog_product_view_type_grouped_discountpreview" template="discountpreview/grouped/discount.phtml" />
         </reference>
     </PRODUCT_TYPE_grouped>
+    <catalog_category_default>
+        <reference name="head">
+            <action method="addItem"><type>skin_css</type><name>css/discountpreview.css</name></action>
+        </reference>
+        <reference name="product_list">
+            <block type="quafzi_discountpreview/catalog_product_discount" name="discountpreview" />
+        </reference>
+    </catalog_category_default>
     <catalog_category_layered>
         <reference name="head">
             <action method="addItem"><type>skin_css</type><name>css/discountpreview.css</name></action>

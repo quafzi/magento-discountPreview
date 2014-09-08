@@ -21,4 +21,12 @@
             <block type="quafzi_discountpreview/catalog_product_discount" name="discountpreview" />
         </reference>
     </catalog_category_layered>
+    <catalogsearch_result_index>
+        <reference name="head">
+            <action method="addItem"><type>skin_css</type><name>css/discountpreview.css</name></action>
+        </reference>
+        <reference name="search_result_list">
+            <block type="quafzi_discountpreview/catalog_product_discount" name="discountpreview" />
+        </reference>
+    </catalogsearch_result_index>
 </layout>

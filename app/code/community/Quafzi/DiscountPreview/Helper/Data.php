@@ -10,9 +10,16 @@ class Quafzi_DiscountPreview_Helper_Data extends Mage_Core_Helper_Abstract
 {
     protected $discountPercent;
     protected $discountAmount;
+    protected $_item;
 
     public function setProduct(Mage_Catalog_Model_Product $product)
     {
+        if ('configurable' == $product->getTypeId()) {
+            $children = $product->getTypeInstance()->getUsedProducts(null, $product);
+            if (is_array($children) && count($children)) {
+                $product = current($children);
+            }
+        }
         $this->_prepareDiscountInfo($product);
     }
 
@@ -32,32 +39,48 @@ class Quafzi_DiscountPreview_Helper_Data extends Mage_Core_Helper_Abstract
         $this->discountPercent = null;
         $_product->load($_product->getId());
 
-        $tmpQuoteItem = Mage::getModel('sales/quote_item');
-        $tmpQuoteItem->setProduct($_product);
-        if (false == is_object($tmpQuoteItem)) {
-            return;
+        $tmpQuote = $this->_getTemporaryQuote($_product);
+        foreach ($tmpQuote->getItemsCollection() as $_item) {
+            $this->_processCartRules($_item);
         }
-        $tmpQuote = Mage::getModel('sales/quote');
-        $tmpQuote
-            ->getBillingAddress()
-            ->addItem($tmpQuoteItem);
-        $tmpQuote->addItem($tmpQuoteItem);
 
+        $item = $tmpQuote->getItemByProduct($_product);
+        if ($item->getDiscountPercent()) {
+            $this->discountPercent = $item->getDiscountPercent();
+            $this->discountAmount  = $this->discountPercent / 100 * $item->getProduct()->getPrice();
+        }
+    }
+
+    protected function _processCartRules($_item)
+    {
         $ruleValidator = Mage::getModel('salesrule/validator');
         $ruleValidator->init(
             Mage::app()->getStore()->getWebsiteId(),
             Mage::helper('customer')->getCustomer()->getGroupId(),
             null
         );
-        $tmpQuote->collectTotals();
-        $ruleValidator->process($tmpQuoteItem);
+        $ruleValidator->process($_item);
 
-        if ($tmpQuoteItem->getDiscountPercent()) {
-            $this->discountPercent = $tmpQuoteItem->getDiscountPercent();
-            $this->discountAmount  = $this->discountPercent / 100 * $tmpQuoteItem->getProduct()->getPrice();
+    }
+
+    protected function _getTemporaryQuote($_product)
+    {
+        /** @var $tmpQuote Mage_Sales_Model_Quote */
+        $tmpQuote = Mage::getModel('sales/quote');
+
+        $cart = Mage::getSingleton('checkout/session')->getQuote();
+        foreach ($cart->getItemsCollection() as $cartItem) {
+            $item = $tmpQuote->addProductAdvanced($cartItem->getProduct(), $cartItem->getQty());
+            if ($item instanceof Mage_Sales_Model_Quote_Item) {
+                $tmpQuote->getShippingAddress()->addItem($item);
+            }
         }
-        if ($tmpQuoteItem->getDiscountAmount()) {
-            $this->discountAmount = $tmpQuoteItem->getDiscountAmount();
+        $item = $tmpQuote->addProductAdvanced($_product, 1);
+        if ($item instanceof Mage_Sales_Model_Quote_Item) {
+            $tmpQuote->getShippingAddress()->addItem($item);
+            $tmpQuote->collectTotals();
         }
+
+        return $tmpQuote;
     }
 }

@@ -15,9 +15,20 @@ class Quafzi_DiscountPreview_Helper_Data extends Mage_Core_Helper_Abstract
     public function setProduct(Mage_Catalog_Model_Product $product)
     {
         if ('configurable' == $product->getTypeId()) {
+            $childSelected = false;
             $children = $product->getTypeInstance()->getUsedProducts(null, $product);
             if (is_array($children) && count($children)) {
-                $product = current($children);
+                foreach ($children as $childProduct) {
+                    if ($childProduct->isSalable()) {
+                        $product = $childProduct;
+                        $childSelected = true;
+                        break;
+                    }
+                }
+            }
+
+            if ($childSelected === false) {
+                Mage::throwException('No in stock children for product %s found', $product->getId());
             }
         }
         $this->_prepareDiscountInfo($product);

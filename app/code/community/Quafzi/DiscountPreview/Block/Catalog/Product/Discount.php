@@ -46,10 +46,14 @@ class Quafzi_DiscountPreview_Block_Catalog_Product_Discount
      */
     public function _toHtml()
     {
-        $helper = Mage::helper('quafzi_discountpreview');
-        $helper->setProduct($this->getProduct());
-        $this->setDiscountPercent($helper->getDiscountPercent());
-        $this->setDiscountAmount($helper->getDiscountAmount());
-        return parent::_toHtml();
+        try {
+            $helper = Mage::helper('quafzi_discountpreview');
+            $helper->setProduct($this->getProduct());
+            $this->setDiscountPercent($helper->getDiscountPercent());
+            $this->setDiscountAmount($helper->getDiscountAmount());
+            return parent::_toHtml();
+        } catch (Exception $e) {
+            //Debugging position
+        }
     }
 }

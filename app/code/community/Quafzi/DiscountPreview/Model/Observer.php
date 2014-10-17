@@ -10,16 +10,20 @@ class Quafzi_DiscountPreview_Model_Observer
 {
     public function blockCatalogProductGetPriceHtml(Varien_Object $observer)
     {
-        $block  = $observer->getBlock();
-        $helper = Mage::helper('quafzi_discountpreview');
-        $helper->setProduct($block->getProduct());
+        try {
+            $block  = $observer->getBlock();
+            $helper = Mage::helper('quafzi_discountpreview');
+            $helper->setProduct($block->getProduct());
 
-        $block->setTemplate('discountpreview/discount.phtml');
-        $block->setDiscountPercent($helper->getDiscountPercent());
-        $block->setDiscountAmount($helper->getDiscountAmount());
+            $block->setTemplate('discountpreview/discount.phtml');
+            $block->setDiscountPercent($helper->getDiscountPercent());
+            $block->setDiscountAmount($helper->getDiscountAmount());
 
-        $container = $observer->getContainer();
-        $html = $container->getHtml() . $block->toHtml();
-        $container->setHtml($html);
+            $container = $observer->getContainer();
+            $html = $container->getHtml() . $block->toHtml();
+            $container->setHtml($html);
+        } catch (Exception $e) {
+            //Debugging position
+        }
     }
 }

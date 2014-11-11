@@ -56,7 +56,7 @@ class Quafzi_DiscountPreview_Helper_Data extends Mage_Core_Helper_Abstract
         }
 
         $item = $tmpQuote->getItemByProduct($_product);
-        if ($item->getDiscountPercent()) {
+        if ($item && $item->getDiscountPercent()) {
             $this->discountPercent = $item->getDiscountPercent();
             $this->discountAmount  = $this->discountPercent / 100 * $item->getProduct()->getPrice();
         }
